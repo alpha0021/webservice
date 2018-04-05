@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>weathe app desktop version</title>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body style="font-family: Arial">
+	<table>
+		<tr>
+			<td>City</td>
+			<td><input type="text" id="textCity"></td>
+
+			<td>Country</td>
+			<td><input type="text" name="textCountry"></td>
+		</tr>
+	</table>
+	<input type="button" id="btnGetWeather" value="get weather data">
+	<br><br>
+	<div id="resultDiv">
+		
+	</div>
+
+
+	<script>
+		$(document).ready(function(){
+				$('#btnGetWeather').click(function(){
+						var requestData = $('#textCity').val() +', ' + $('#textCountry').val();
+						var resultElement = $('#resultDiv');
+
+						$.ajax({
+						url:'http://samples.openweathermap.org/data/2.5/weather',
+						data:{ q : requestData}, // data send to the server
+						dataType:'json',     // type of data that we recieve from server
+						success:function(data){  //json object rcvd by deta parameter
+							resultElement.html('weather :' + data.weather[0].main + '<br>' + 'Description :' + data.weather[0].description);
+						}
+					});
+				});
+
+				
+		});
+	</script>
+</body>
+</html>
